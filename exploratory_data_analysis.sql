@@ -38,9 +38,9 @@ ORDER BY GDP DESC;
 
 -- Correlation of High and Low Life_Exp and GDP 
 SELECT 
-    ROUND(SUM(CASE WHEN GDP >= 1500 THEN 1 ELSE 0 END),1) AS High_GDP_Count,
+    SUM(CASE WHEN GDP >= 1500 THEN 1 ELSE 0 END) AS High_GDP_Count,
     ROUND(AVG(CASE WHEN GDP >= 1500 THEN Lifeexpectancy ELSE NULL END),1) AS High_GDP_Lifeexpectancy_Avg,
-    ROUND(SUM(CASE WHEN GDP < 1500 THEN 1 ELSE 0 END),1) AS Low_GDP_Count,
+    SUM(CASE WHEN GDP < 1500 THEN 1 ELSE 0 END) AS Low_GDP_Count,
     ROUND(AVG(CASE WHEN GDP < 1500 THEN Lifeexpectancy ELSE NULL END),1) AS Low_GDP_Lifeexpectancy_Avg
 FROM world_life_expectancy
 ORDER BY GDP;
@@ -67,5 +67,4 @@ Lifeexpectancy,
 AdultMortality,
 SUM(AdultMortality) OVER(PARTITION BY Country ORDER BY Year) AS Rolling_Total
 FROM world_life_expectancy
-WHERE Country LIKE '%United%'
 ;
